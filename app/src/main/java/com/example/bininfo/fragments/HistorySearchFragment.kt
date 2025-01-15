@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.bininfo.R
 import com.example.bininfo.adapter.RequestAdapter
 import com.example.bininfo.databinding.FragmentHistorySearchBinding
+import com.example.bininfo.model.Request
 import com.example.bininfo.viewmodel.RequestViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -34,13 +35,17 @@ class HistorySearchFragment : Fragment(R.layout.fragment_history_search) {
         setupHistoryRecyclerView()
     }
 
-/*    private fun updateUI(request: List<Request>?) {
+    private fun updateUI(request: List<Request>?) {
         if (request != null) {
             if (request.isNotEmpty()) {
-
+                binding.emptyHistoryText.visibility = View.GONE
+                binding.historyRecyclerView.visibility = View.VISIBLE
+            } else {
+                binding.emptyHistoryText.visibility = View.VISIBLE
+                binding.historyRecyclerView.visibility = View.GONE
             }
         }
-    }*/
+    }
 
     private fun setupHistoryRecyclerView() {
         requestsAdapter = RequestAdapter()
@@ -53,7 +58,7 @@ class HistorySearchFragment : Fragment(R.layout.fragment_history_search) {
         activity?.let {
             requestViewModel.getAllRequests().observe(viewLifecycleOwner) {request ->
                 requestsAdapter.differ.submitList(request)
-//                updateUI()
+                updateUI(request)
             }
         }
     }
