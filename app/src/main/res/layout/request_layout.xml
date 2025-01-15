@@ -26,19 +26,41 @@
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/generalData"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
 
-                android:layout_marginTop="8dp"
+                android:orientation="horizontal"
 
-                android:maxHeight="170dp"
-                android:text="generalData"
-                android:textSize="14sp"
-                android:ellipsize="none"
-                android:breakStrategy="simple"
-                android:hyphenationFrequency="none"/>
+                android:layout_marginTop="8dp">
+
+                <TextView
+                    android:id="@+id/bankData"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginEnd="15dp"
+
+                    android:maxHeight="170dp"
+                    android:text="bankData"
+                    android:textSize="14sp"
+                    android:ellipsize="none"
+                    android:breakStrategy="simple"
+                    android:hyphenationFrequency="none"/>
+
+                <TextView
+                    android:id="@+id/generalData"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:maxHeight="170dp"
+                    android:text="generalData"
+                    android:textSize="14sp"
+                    android:ellipsize="none"
+                    android:breakStrategy="simple"
+                    android:hyphenationFrequency="none"/>
+
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/countryData"
@@ -49,20 +71,6 @@
 
                 android:maxHeight="170dp"
                 android:text="countryData"
-                android:textSize="14sp"
-                android:ellipsize="none"
-                android:breakStrategy="simple"
-                android:hyphenationFrequency="none"/>
-
-            <TextView
-                android:id="@+id/bankData"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-
-                android:layout_marginTop="8dp"
-
-                android:maxHeight="170dp"
-                android:text="bankData"
                 android:textSize="14sp"
                 android:ellipsize="none"
                 android:breakStrategy="simple"

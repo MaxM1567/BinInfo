@@ -1,11 +1,13 @@
 package com.example.bininfo.fragments
 
 import android.os.Bundle
+import android.speech.tts.TextToSpeech
 import android.util.Log
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.bininfo.R
 import com.example.bininfo.databinding.FragmentSearchBinding
@@ -78,9 +80,20 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
 
     private fun startSearch() {
         val bin = binding.editText.text.toString()
-        if (bin.isNotEmpty()) {
+        if (inputValidation(bin)) {
             binViewModel.fetchBinData(bin)
         }
+    }
+
+    private fun inputValidation(bin: String): Boolean {
+        if (bin.isEmpty()) {
+            Toast.makeText(context, "Введите BIN номер!", Toast.LENGTH_SHORT).show()
+            return false
+        } else if (bin.length !in 6..8) {
+            Toast.makeText(context, "Введите 6-8 цифр!", Toast.LENGTH_SHORT).show()
+            return false
+        }
+        return true
     }
 
     private fun saveRequest(parsedData: Map<String, Any?>) {
