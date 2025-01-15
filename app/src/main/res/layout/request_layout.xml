@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="6dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/binNumber"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="200"
+
+                android:text="Bin Number"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/generalData"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_marginTop="8dp"
+
+                android:maxHeight="170dp"
+                android:text="generalData"
+                android:textSize="14sp"
+                android:ellipsize="none"
+                android:breakStrategy="simple"
+                android:hyphenationFrequency="none"/>
+
+            <TextView
+                android:id="@+id/countryData"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_marginTop="8dp"
+
+                android:maxHeight="170dp"
+                android:text="countryData"
+                android:textSize="14sp"
+                android:ellipsize="none"
+                android:breakStrategy="simple"
+                android:hyphenationFrequency="none"/>
+
+            <TextView
+                android:id="@+id/bankData"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_marginTop="8dp"
+
+                android:maxHeight="170dp"
+                android:text="bankData"
+                android:textSize="14sp"
+                android:ellipsize="none"
+                android:breakStrategy="simple"
+                android:hyphenationFrequency="none"/>
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</layout>

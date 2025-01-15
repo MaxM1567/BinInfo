@@ -4,15 +4,69 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.MenuHost
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.example.bininfo.MainActivity
 import com.example.bininfo.R
+import com.example.bininfo.adapter.RequestAdapter
+import com.example.bininfo.databinding.FragmentHistorySearchBinding
+import com.example.bininfo.model.Request
+import com.example.bininfo.viewmodel.RequestViewModel
 
-class HistorySearchFragment : Fragment() {
+class HistorySearchFragment : Fragment(R.layout.fragment_history_search) {
+
+    private var historySearchBinding: FragmentHistorySearchBinding? = null
+    private val binding get() = historySearchBinding!!
+
+    private lateinit var requestsViewModel: RequestViewModel
+    private lateinit var requestsAdapter: RequestAdapter
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_history_search, container, false)
+
+        historySearchBinding = FragmentHistorySearchBinding.inflate(inflater, container, false)
+        return binding.root
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        requestsViewModel = (activity as MainActivity).requestViewModel
+
+        setupHistoryRecyclerView()
+    }
+
+/*    private fun updateUI(request: List<Request>?) {
+        if (request != null) {
+            if (request.isNotEmpty()) {
+
+            }
+        }
+    }*/
+
+    private fun setupHistoryRecyclerView() {
+        requestsAdapter = RequestAdapter()
+        binding.historyRecyclerView.apply {
+            layoutManager = StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL)
+            setHasFixedSize(true)
+            adapter = requestsAdapter
+        }
+
+        activity?.let {
+            requestsViewModel.getAllRequests().observe(viewLifecycleOwner) {request ->
+                requestsAdapter.differ.submitList(request)
+//                updateUI()
+            }
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        historySearchBinding = null
+    }
+
 }

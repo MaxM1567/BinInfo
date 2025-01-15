@@ -6,17 +6,25 @@ import com.example.bininfo.network.RetrofitInstance
 class BinRepository {
     private val api = RetrofitInstance.api
 
-    suspend fun getBinData(bin: String): String {
-        val response = api.getBinInfo(bin)
-        Log.d("ABOBA", response.toString())
-        return "User:\n" +
-                "Country: ${response.country?.name}\n" +
-                "Scheme: ${response.scheme}\n" +
-                "\n" +
-                "Bank:\n" +
-                "Name:${response.bank?.name}\n" +
-                "Url: ${response.bank?.url}\n" +
-                "Phone: ${response.bank?.phone}\n" +
-                "City: ${response.bank?.city}"
+    suspend fun getBinData(bin: String): Any {
+//    suspend fun getBinData(bin: String): Map<String, Any?>? {
+        try {
+            val response = api.getBinInfo(bin)
+            return mapOf(
+                "bin" to bin,
+                "scheme" to response.scheme,
+                "type" to response.type,
+                "bank" to mapOf(
+                    "name" to response.bank?.name,
+                ),
+                "country" to mapOf(
+                    "name" to response.country?.name,
+                    "currency" to response.country?.currency
+                )
+            )
+        } catch (e: Exception) {
+            Log.e("ERR", "Error: $e")
+            return "Error: $e"
+        }
     }
 }

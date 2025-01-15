@@ -1,10 +1,12 @@
 package com.example.bininfo.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.bininfo.repository.BinRepository
+import com.google.gson.Gson
 import kotlinx.coroutines.launch
 
 class BinViewModel : ViewModel() {
@@ -15,12 +17,13 @@ class BinViewModel : ViewModel() {
 
     fun fetchBinData(bin: String) {
         viewModelScope.launch {
-            try {
-                val result = repository.getBinData(bin)
-                _binData.value = result
+            val result = repository.getBinData(bin)
+            if (!result.toString().startsWith("Error")) {
+                val jsonResult = Gson().toJson(result)
+                _binData.value = jsonResult
 
-            } catch (e: Exception) {
-                _binData.value = "Error: ${e.message}"
+            } else {
+                _binData.value = result.toString()
             }
         }
     }
