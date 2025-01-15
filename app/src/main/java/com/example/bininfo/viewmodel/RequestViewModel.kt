@@ -15,5 +15,5 @@ class RequestViewModel(app: Application, private val requestRepository: RequestR
             requestRepository.insertRequest(request)
         }
 
-    fun getAllRequests() = requestRepository.getAllTasks()
+    fun getAllRequests() = requestRepository.getAllRequests()
 }

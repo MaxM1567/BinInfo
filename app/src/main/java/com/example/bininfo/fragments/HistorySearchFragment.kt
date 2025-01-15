@@ -4,23 +4,20 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.MenuHost
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Lifecycle
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import com.example.bininfo.MainActivity
 import com.example.bininfo.R
 import com.example.bininfo.adapter.RequestAdapter
 import com.example.bininfo.databinding.FragmentHistorySearchBinding
-import com.example.bininfo.model.Request
 import com.example.bininfo.viewmodel.RequestViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HistorySearchFragment : Fragment(R.layout.fragment_history_search) {
 
     private var historySearchBinding: FragmentHistorySearchBinding? = null
     private val binding get() = historySearchBinding!!
 
-    private lateinit var requestsViewModel: RequestViewModel
+    private val requestViewModel: RequestViewModel by viewModel()
     private lateinit var requestsAdapter: RequestAdapter
 
     override fun onCreateView(
@@ -34,9 +31,6 @@ class HistorySearchFragment : Fragment(R.layout.fragment_history_search) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        requestsViewModel = (activity as MainActivity).requestViewModel
-
         setupHistoryRecyclerView()
     }
 
@@ -57,15 +51,15 @@ class HistorySearchFragment : Fragment(R.layout.fragment_history_search) {
         }
 
         activity?.let {
-            requestsViewModel.getAllRequests().observe(viewLifecycleOwner) {request ->
+            requestViewModel.getAllRequests().observe(viewLifecycleOwner) {request ->
                 requestsAdapter.differ.submitList(request)
 //                updateUI()
             }
         }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         historySearchBinding = null
     }
 

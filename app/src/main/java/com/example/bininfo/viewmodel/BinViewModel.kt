@@ -1,6 +1,5 @@
 package com.example.bininfo.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -9,9 +8,7 @@ import com.example.bininfo.repository.BinRepository
 import com.google.gson.Gson
 import kotlinx.coroutines.launch
 
-class BinViewModel : ViewModel() {
-    private val repository = BinRepository()
-
+class BinViewModel(private val repository: BinRepository) : ViewModel() {
     private val _binData = MutableLiveData<String>()
     val binData: LiveData<String> get() = _binData
 

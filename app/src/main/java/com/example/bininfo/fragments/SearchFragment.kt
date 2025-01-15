@@ -7,8 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import com.example.bininfo.MainActivity
 import com.example.bininfo.R
 import com.example.bininfo.databinding.FragmentSearchBinding
 import com.example.bininfo.model.Request
@@ -16,13 +14,14 @@ import com.example.bininfo.viewmodel.BinViewModel
 import com.example.bininfo.viewmodel.RequestViewModel
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SearchFragment : Fragment(R.layout.fragment_search) {
     private var searchBinding: FragmentSearchBinding? = null
     private val binding get() = searchBinding!!
 
-    private val binViewModel: BinViewModel by viewModels()
-    private lateinit var requestsViewModel: RequestViewModel
+    private val binViewModel: BinViewModel by viewModel()
+    private val requestViewModel: RequestViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -75,8 +74,6 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
                 binding.binNumber.text = binInfo.toString()
             }
         }
-
-        requestsViewModel = (activity as MainActivity).requestViewModel
     }
 
     private fun startSearch() {
@@ -109,9 +106,9 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
                 countryCurrency = countryCurrency
             )
 
-            requestsViewModel.addRequest(request)
+            requestViewModel.addRequest(request)
         } catch (e: Exception) {
-            Log.e("SaveRequest", "Error parsing or saving request: ${e.message}")
+            Log.e("ERR", "Error parsing or saving request: ${e.message}")
         }
     }
 

@@ -1,13 +1,11 @@
 package com.example.bininfo.repository
 
 import android.util.Log
-import com.example.bininfo.network.RetrofitInstance
+import com.example.bininfo.network.BinApi
 
-class BinRepository {
-    private val api = RetrofitInstance.api
+class BinRepository(private val api: BinApi) {
 
     suspend fun getBinData(bin: String): Any {
-//    suspend fun getBinData(bin: String): Map<String, Any?>? {
         try {
             val response = api.getBinInfo(bin)
             return mapOf(

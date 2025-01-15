@@ -6,19 +6,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
-import com.example.bininfo.database.RequestDatabase
 import com.example.bininfo.databinding.ActivityMainBinding
 import com.example.bininfo.fragments.HistorySearchFragment
 import com.example.bininfo.fragments.SearchFragment
-import com.example.bininfo.repository.RequestRepository
-import com.example.bininfo.viewmodel.RequestViewModel
-import com.example.bininfo.viewmodel.RequestViewModelFactory
 
 class MainActivity : AppCompatActivity() {
-
     private lateinit var binding: ActivityMainBinding
-    lateinit var requestViewModel: RequestViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,8 +36,6 @@ class MainActivity : AppCompatActivity() {
             }
             true
         }
-
-        setupViewModel()
     }
 
     private fun replaceFragment(fragment: Fragment) {
@@ -53,11 +44,5 @@ class MainActivity : AppCompatActivity() {
 
         fragmentTransaction.replace(binding.frameContainer.id, fragment)
         fragmentTransaction.commit()
-    }
-
-    private fun setupViewModel() {
-        val requestRepository = RequestRepository(RequestDatabase(this))
-        val viewModelProviderFactory = RequestViewModelFactory(application, requestRepository)
-        requestViewModel = ViewModelProvider(this, viewModelProviderFactory)[RequestViewModel::class.java]
     }
 }

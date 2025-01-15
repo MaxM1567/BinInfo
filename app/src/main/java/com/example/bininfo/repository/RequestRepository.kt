@@ -6,5 +6,5 @@ import com.example.bininfo.model.Request
 class RequestRepository(private val db: RequestDatabase) {
     suspend fun insertRequest(request: Request) = db.getRequestDao().insertRequest(request)
 
-    fun getAllTasks() = db.getRequestDao().getAllRequests()
+    fun getAllRequests() = db.getRequestDao().getAllRequests()
 }
